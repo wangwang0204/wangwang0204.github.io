@@ -37,10 +37,11 @@ function getIsWeekDay() {
 // Function to find the next train time
 function getNextTrainTime() {
     const isWeekDay = getIsWeekDay()
+    scheduleToday = trainSchedule[isWeekDay]
     const currentTime = getCurrentTimeInMinutes();
-    for (let time of trainSchedule[isWeekDay]) {
+    for (let [idx, time] of scheduleToday.entries()) {
         if (time > currentTime) {
-            return time;
+            return [time, scheduleToday[idx+1], scheduleToday[idx+2], scheduleToday[idx+3]]
         }
     }
     // If no more trains today, return the first train of the next day
@@ -49,14 +50,25 @@ function getNextTrainTime() {
 
 // Function to update the countdown
 function updateCountdown() {
+
     const currentTime = getCurrentTimeInMinutes();
-    const nextTrainTime = getNextTrainTime();
-    const timeLeft = nextTrainTime - currentTime;
-    const hours = Math.floor(timeLeft / 60);
-    const minutes = timeLeft % 60;
+    const nextFourTrain = getNextTrainTime()
+
+
+    const timeLeft = nextFourTrain.map(time => [Math.floor((time - currentTime) / 60), (time - currentTime) % 60])
     const timeLeftElement = document.getElementById('time-left');
+    const hours = timeLeft[0][0]
+    const minutes = timeLeft[0][1]
+
     timeLeftElement.textContent = `距離發車還有${hours}h ${minutes}m`;
-    timeLeftElement.style.color = timeLeft < 10 ? 'red' : 'black';  // 三元運算符 condition ? true : false
+    timeLeftElement.style.color = minutes < 10 ? 'red' : 'black';  // 三元運算符 condition ? true : false
+
+    // three more train
+    const minutes1 = timeLeft[1][1]
+    const minutes2 = timeLeft[2][1]
+    const minutes3 = timeLeft[3][1]
+    const threeMoreTrainElement = document.getElementById('three-more-train');
+    threeMoreTrainElement.textContent = `下三班車將在 ${minutes1}, ${minutes2}, ${minutes3}m 之後抵達`
   }
 
 // Update the countdown every minute
