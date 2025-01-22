@@ -1,20 +1,64 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>列車發車時間</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Day Travel Schedule</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .schedule {
+            margin: 0 auto;
+            max-width: 600px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .time {
+            font-weight: bold;
+            color: #007BFF;
+        }
+        .activity {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
-    <div id="container">
-        <h1 id="time-left"> </h1>
+    <h1>One Day Travel Schedule</h1>
+    <div class="schedule">
+        <div class="activity">
+            <span class="time">8:00 AM:</span> Breakfast at a local cafe
+        </div>
+        <div class="activity">
+            <span class="time">9:30 AM:</span> Visit the city museum
+        </div>
+        <div class="activity">
+            <span class="time">12:00 PM:</span> Lunch at a popular restaurant
+        </div>
+        <div class="activity">
+            <span class="time">1:30 PM:</span> Walk in the central park
+        </div>
+        <div class="activity">
+            <span class="time">3:00 PM:</span> Coffee break at a cozy coffee shop
+        </div>
+        <div class="activity">
+            <span class="time">4:00 PM:</span> Explore the shopping district
+        </div>
+        <div class="activity">
+            <span class="time">6:30 PM:</span> Dinner at a fine dining restaurant
+        </div>
+        <div class="activity">
+            <span class="time">8:00 PM:</span> Evening stroll along the river
+        </div>
     </div>
-    
-    <div id="dashboard">
-        <h2 id="three-more-train"> </h2>
-    </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
 
