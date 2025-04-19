@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Virtual Try-On Machine</title>
+   <link rel="stylesheet" href="styles.css">
+   <link rel="stylesheet" href="closet.css">
+   <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+   <div class="container">
+       <div class="left-section">
+           <div class="try-on-display">
+               <div id="trying-on-area">Select items to try on</div>
+               <div id="camera-feed">Camera Feed Placeholder</div>
+               <div id="selected-outfit">Outfit: </div>
+           </div>
+           <div class="text-area">
+               <div class="chat-container">
+                   <div id="chat-log">
+                       <div class="gemini-message">
+                           <img src="images/gemini_logo.png" alt="Gemini Logo" class="gemini-logo">
+                           <span class="gemini-text">Hi there! How can I help you style today?</span>
+                       </div>
+                   </div>
+                   <div class="chat-input-area">
+                       <input type="text" id="user-input" placeholder="Ask Fashion-Instruct Gemini...">
+                       <button id="send-button">
+                           <img src="images/voice_icon.png" alt="Send/Voice Input">
+                       </button>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <div class="right-section">
+           <div class="closet-area">
+               <div class="closet-header">
+                   <div class="search-bar">
+                       <input type="text" id="search-input" placeholder="Search Clothes...">
+                   </div>
+                   <button id="show-menu-button">Show Menu</button>
+               </div>
+
+               <div class="closet-navigation">
+                   <button id="suits-button" class="active">Suits</button> 
+                   <button id="single-button">Single</button>
+                   <div class="type-select-container">
+                       <select id="type-select">
+                           <option value="all">All</option>
+                           <option value="clothes">Clothes</option>
+                           <option value="pants">Pants</option>
+                           <option value="shoes">Shoes</option>
+                       </select>
+                   </div>
+               </div>
+
+               <div class="closet-content">
+                   <div id="suits-section">
+                       <div class="carousel-container">
+                           <h3>Clothes</h3>
+                           <div class="carousel" id="clothes-carousel">
+                               <button class="carousel-arrow left hidden">⇠</button>
+                               <div class="carousel-items-wrapper">
+                                   <div class="carousel-items" id="clothes-items">
+                                   </div>
+                               </div>
+                               <button class="carousel-arrow right hidden">⇢</button>
+                           </div>
+                       </div>
+                       <div class="carousel-container">
+                           <h3>Pants</h3>
+                           <div class="carousel" id="pants-carousel">
+                               <button class="carousel-arrow left hidden">⇠</button>
+                               <div class="carousel-items-wrapper">
+                                   <div class="carousel-items" id="pants-items">
+                                   </div>
+                               </div>
+                               <button class="carousel-arrow right hidden">⇢</button>
+                           </div>
+                       </div>
+                   </div>
+
+                   <div id="single-section" class="hidden">
+                       <div class="carousel-container">
+                           <h3>Items</h3>
+                           <div class="carousel" id="single-carousel">
+                               <button class="carousel-arrow left hidden">⇠</button>
+                               <div class="carousel-items-wrapper">
+                                   <div class="carousel-items" id="single-items">
+                                   </div>
+                               </div>
+                               <button class="carousel-arrow right hidden">⇢</button>
+                           </div>
+                       </div>
+                   </div>
+
+                   <div id="menu-mode-container" class="hidden">
+                       <div id="menu-items-grid" class="menu-items-grid">
+                       </div>
+                   </div>
+
+                   <div id="selected-mode-container" class="hidden">
+                       <button id="close-selected-mode" class="close-button">X</button>
+                       <div id="selected-item-display">
+                           <img src="" alt="">
+                       </div>
+                       <div class="selected-mode-buttons">
+                           <button id="selected-compare-button">Compare</button>
+                           <button id="selected-tryon-button">Try-On</button>
+                       </div>
+                   </div>
+
+                   <div id="comparing-mode-container" class="hidden">
+                       <div class="comparing-left">
+                       </div>
+                       <div class="comparing-right">
+                           <div class="closet-content">
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <div class="info-area">
+               <div id="item-info-content">
+                   <p>Double-click an item to see details or compare.</p>
+               </div>
+           </div>
+       </div>
+   </div>
+   <script src="closet.js"></script>
+   <script src="script.js"></script>
+   <script src="chat.js"></script>
+</body>
+</html>

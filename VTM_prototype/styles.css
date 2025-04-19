@@ -1,0 +1,103 @@
+/* --- General Body and Layout --- */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #e0e0e0; /* Slightly darker background */
+    color: #333;
+ }
+ 
+ .container {
+    display: flex;
+    width: 95%;
+    max-width: 1800px; /* Allow wider layout */
+    height: 90vh; /* Maintain viewport height */
+    min-height: 650px; /* Minimum height */
+    background-color: #ffffff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 8px; /* Softer corners */
+    overflow: hidden; /* Clip content within rounded corners */
+ }
+ 
+ /* --- Left Section (Try-On & Chat) --- */
+ .left-section {
+    flex: 0 0 60%; /* Maintain 60% width */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-right: 1px solid #dcdcdc; /* Slightly darker border */
+ }
+ 
+ .try-on-display {
+    flex-grow: 1; /* Takes up space above chat */
+    background-color: #f0f0f0; /* Lighter grey */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #666;
+    font-size: 1.1em;
+    padding: 20px;
+    position: relative; /* For potential overlays or elements */
+    overflow: hidden; /* Prevent content spillover */
+ }
+ 
+ /* Placeholders within try-on area */
+ #camera-feed {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    background-color: #e8e8e8;
+ }
+ 
+ #trying-on-area {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+ }
+ 
+ #selected-outfit {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+ }
+ 
+ .text-area {
+    flex: 0 0 35%; /* Fixed percentage height for chat */
+    min-height: 150px; /* Minimum height */
+    max-height: 250px; /* Maximum height */
+    display: flex; /* Use flex for chat container */
+    border-top: 1px solid #dcdcdc;
+    background-color: #fdfdfd;
+    overflow: hidden; /* Chat container handles its own scroll */
+ }
+ 
+ /* --- Right Section (Closet & Info) --- */
+ .right-section {
+    flex: 1; /* Takes remaining width (40%) */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #fdfdfd; /* Slightly off-white */
+    overflow: hidden; /* Ensure content doesn't overflow */
+ }
+ 
+ /* --- Global Helper --- */
+ .hidden {
+    display: none !important;
+ }

@@ -1,0 +1,156 @@
+[
+    {
+        "id": 1,
+        "name": "Coffee T-shirt",
+        "type": "clothes",
+        "image": "sample_DB/clothes/pic1.jpg",
+        "available_sizes": ["S", "M", "L", "XL"],
+        "description": "A comfy cotton t-shirt."
+    },
+    {
+        "id": 2,
+        "name": "Blue Jeans",
+        "type": "pants",
+        "image": "sample_DB/pants/pic1.jpg",
+        "available_sizes": ["30", "32", "34", "36"],
+        "description": "Classic blue denim jeans."
+    },
+    {
+        "id": 3,
+        "name": "Gray T-shirt",
+        "type": "clothes",
+        "image": "sample_DB/clothes/pic2.jpg",
+        "available_sizes": ["XS", "S", "M", "L", "XL"],
+        "description": "A versatile gray t-shirt."
+    },
+    {
+        "id": 4,
+        "name": "Old Jeans",
+        "type": "pants",
+        "image": "sample_DB/pants/pic2.jpg",
+        "available_sizes": ["28", "30", "32", "34"],
+        "description": "Worn-in style denim."
+    },
+    {
+        "id": 5,
+        "name": "Vinyl T-shirt",
+        "type": "clothes",
+        "image": "sample_DB/clothes/pic3.jpg",
+        "available_sizes": ["M", "L", "XL", "XXL"],
+        "description": "T-shirt with a vinyl print."
+    },
+    {
+        "id": 6,
+        "name": "Country Jeans",
+        "type": "pants",
+        "image": "sample_DB/pants/pic3.jpg",
+        "available_sizes": ["30", "32", "34", "36", "38"],
+        "description": "Rugged country-style jeans."
+    },
+    {
+        "id": 7,
+        "name": "Man Utd Jersey",
+        "type": "clothes",
+        "image": "sample_DB/clothes/pic4.jpg",
+        "available_sizes": ["S", "M", "L", "XL", "XXL"],
+        "description": "A powerful jersey for fans."
+    },
+    {
+        "id": 8,
+        "name": "Black Chinos",
+        "type": "pants",
+        "image": "sample_DB/pants/pic4.jpg",
+        "available_sizes": ["29", "30", "31", "32", "33", "34"],
+        "description": "Smart black chinos."
+    },
+    {
+        "id": 9,
+        "name": "Green Polo",
+        "type": "clothes",
+        "image": "sample_DB/clothes/pic5.jpg",
+        "available_sizes": ["S", "M", "L"],
+        "description": "A green polo shirt."
+    },
+    {
+        "id": 10,
+        "name": "Cargo Shorts",
+        "type": "pants",
+        "image": "sample_DB/pants/pic5.jpg",
+        "available_sizes": ["30", "32", "34", "36", "38", "40"],
+        "description": "Practical cargo shorts."
+    },
+    {
+        "id": 11,
+        "name": "Blue Jeans",
+        "type": "pants",
+        "image": "sample_DB/blue_jeans.jpg",
+        "available_sizes": ["30", "32", "34", "36"],
+        "description": "Stylish blue denim jeans for everyday wear."
+    },
+    {
+        "id": 12,
+        "name": "Girls Shirt",
+        "type": "clothes",
+        "image": "sample_DB/girls_shirt.jpg",
+        "available_sizes": ["XS", "S", "M", "L"],
+        "description": "Cute and comfortable shirt for girls."
+    },
+    {
+        "id": 13,
+        "name": "Green Pants",
+        "type": "pants",
+        "image": "sample_DB/green_pants.jpg",
+        "available_sizes": ["28", "30", "32", "34", "36"],
+        "description": "Trendy green pants in a relaxed fit."
+    },
+    {
+        "id": 14,
+        "name": "Spider-Man T-shirt",
+        "type": "clothes",
+        "image": "sample_DB/spider_man.jpg",
+        "available_sizes": ["S", "M", "L", "XL"],
+        "description": "Fun Spider-Man themed t-shirt for fans."
+    },
+    {
+        "id": 15,
+        "name": "Converse Sneakers",
+        "type": "shoes",
+        "image": "sample_DB/converse.jpg",
+        "available_sizes": ["7", "8", "9", "10", "11"],
+        "description": "Classic canvas sneakers with timeless style."
+    },
+    {
+        "id": 16,
+        "name": "Leyenda Running Shoes",
+        "type": "shoes",
+        "image": "sample_DB/leyenda.jpg",
+        "available_sizes": ["6", "7", "8", "9", "10", "11", "12"],
+        "description": "Performance running shoes with superior comfort."
+    },
+    {
+        "id": 17,
+        "name": "Air Force Sneakers",
+        "type": "shoes",
+        "image": "sample_DB/air_force.jpg",
+        "available_sizes": ["6", "7", "8", "9", "10", "11"],
+        "description": "Iconic streetwear sneakers with premium materials."
+    }
+    ,
+    {
+        "id": 18,
+        "name": "Crocs Classic Clogs",
+        "type": "shoes",
+        "image": "sample_DB/crocs.jpg",
+        "available_sizes": ["5", "6", "7", "8", "9", "10", "11"],
+        "description": "Comfortable and lightweight foam clogs for casual wear."
+    },
+    {
+        "id": 19,
+        "name": "Leather Oxford Shoes",
+        "type": "shoes",
+        "image": "sample_DB/leather.jpg",
+        "available_sizes": ["7", "8", "9", "10", "11", "12"],
+        "description": "Elegant formal leather shoes with classic oxford design."
+    }
+
+]

@@ -1,0 +1,495 @@
+/* --- Closet Area General --- */
+.closet-area {
+    flex-grow: 1; /* Takes remaining vertical space in right-section */
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevent overall closet scroll, manage scrolling within modes */
+    position: relative; /* Needed for positioning absolute elements like arrows and overlay */
+    box-sizing: border-box; /* Include padding in width/height calculations */
+}
+
+/* --- Closet Content --- */
+.closet-content {
+    flex-grow: 1; /* Takes space below header/nav */
+    overflow-y: auto; /* Allows scrolling if content exceeds space */
+    position: relative;
+    box-sizing: border-box; /* Ensure padding doesn't cause overflow */
+}
+
+/* --- Closet Header --- */
+.closet-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-shrink: 0; /* Prevent shrinking */
+    box-sizing: border-box;
+}
+
+.search-bar {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.search-bar input[type="text"] {
+    width: 100%; /* Take full width of its container */
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9em;
+    box-sizing: border-box;
+}
+
+#show-menu-button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-size: 0.9em;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+#show-menu-button:hover {
+    background-color: #e0e0e0;
+}
+
+/* --- Closet Navigation --- */
+.closet-navigation {
+    display: flex;
+    align-items: stretch; /* Make buttons same height */
+    margin-bottom: 15px;
+    width: 100%;
+    flex-shrink: 0; /* Prevent shrinking */
+    height: 35px; /* Fixed height for consistency */
+    box-sizing: border-box; /* Include border/padding in width */
+    border: 1px solid #ccc; /* Unified border around nav */
+    border-radius: 4px; /* Rounded corners */
+    overflow: hidden; /* Prevent content from spilling */
+}
+
+#suits-button,
+#single-button,
+.type-select-container {
+    box-sizing: border-box; /* Ensure padding/border included in width calc */
+    display: flex; /* Use flex for centering content within */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    background-color: #f0f0f0; /* Consistent background */
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-grow: 1; /* Equal width distribution */
+    flex-shrink: 0; /* Prevent shrinking */
+    border: none; /* Remove individual borders */
+}
+
+#suits-button {
+    border-right: 1px solid #ccc; /* Separator between buttons */
+}
+
+#single-button {
+    border-right: 1px solid #ccc; /* Separator between buttons */
+}
+
+#suits-button.active,
+#single-button.active {
+    background-color: #d8d8d8;
+    font-weight: bold;
+}
+
+.type-select-container {
+    padding: 0 5px; /* Reduced padding for tighter fit */
+    background-color: #f0f0f0;
+}
+
+.type-select-container select {
+    width: 100%; /* Full width of container */
+    border: none;
+    background: transparent;
+    padding: 5px;
+    font-size: 0.9em;
+    outline: none;
+    cursor: pointer;
+    appearance: none; /* Remove default dropdown arrow */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23555" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Custom arrow */
+    background-repeat: no-repeat;
+    background-position: right 5px center;
+    background-size: 16px;
+}
+
+/* --- Item Display Base --- */
+.closet-item {
+    width: 100px; /* Adjust size as needed */
+    height: 130px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Pushes content apart */
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+    background-color: #fff;
+    padding: 5px;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative; /* For potential absolute elements inside */
+    flex-shrink: 0; /* Important for flex containers like carousel */
+}
+
+.closet-item:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.closet-item img {
+    max-width: 85%;
+    max-height: 70%;
+    object-fit: contain;
+    margin-top: 5px;
+}
+
+.closet-item span {
+    font-size: 0.8em;
+    color: #333;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+}
+
+/* --- Carousel Mode --- */
+.carousel-container {
+    margin-bottom: 15px; /* Space between carousels in suits mode */
+    overflow: hidden; /* Clip items outside */
+    box-sizing: border-box;
+}
+
+.carousel-container h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 1em;
+    font-weight: normal;
+    color: #555;
+}
+
+.carousel {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0 30px; /* Space for arrows */
+    box-sizing: border-box;
+}
+
+.carousel-items-wrapper {
+    flex-grow: 1;
+    overflow: hidden; /* Keep this hidden */
+}
+
+.carousel-items {
+    display: flex;
+    gap: 15px; /* Space between items */
+    padding: 10px 0; /* Vertical padding */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    scroll-snap-type: x mandatory; /* Snap items */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE/Edge */
+}
+
+.carousel-items::-webkit-scrollbar {
+    display: none; /* Safari/Chrome */
+}
+
+.carousel-items .closet-item {
+    flex-shrink: 0; /* Prevent items from shrinking */
+    scroll-snap-align: center; /* Snap items to center */
+    opacity: 0.6; /* Default fade */
+    transform: scale(0.9); /* Default scale */
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    user-select: none;
+}
+
+.carousel-items .closet-item.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2em;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2; /* Ensure above items */
+    flex-shrink: 0;
+}
+
+.carousel-arrow.left {
+    left: 5px; /* Position inside the padding */
+}
+
+.carousel-arrow.right {
+    right: 5px; /* Position inside the padding */
+}
+
+.carousel-arrow:hover {
+    background-color: #eee;
+}
+
+/* --- Menu Mode --- */
+#menu-mode-container {
+    padding: 10px;
+    overflow-y: auto;
+    height: 100%; /* Fill available space */
+    box-sizing: border-box;
+}
+
+.menu-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Responsive grid */
+    gap: 15px;
+    justify-items: center;
+}
+
+/* --- Selected Mode --- */
+#selected-mode-container {
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: 100%; /* Fill closet-content space */
+    width: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.selected-item-display {
+    width: 100%;
+    max-height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.selected-item-display img {
+    margin: 15px auto 0; /* Top margin and auto left/right margins to center */
+    max-width: 70%; /* Reduced from 100% to make image smaller */
+    max-height: 250px; /* Set a specific max height */
+    display: block;
+    object-fit: contain; /* Maintain aspect ratio */
+}
+
+/*
+.selected-item-display span {
+    display: flex;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+*/
+
+.selected-mode-buttons {
+    display: flex;
+    justify-content: space-around; /* Space out buttons */
+    width: 100%;
+    max-width: 280px; /* Limit button container width */
+    margin: 15px auto 0; /* Top margin and auto left/right margins to center */
+    align-items: center; /* Vertically center items */
+}
+
+.selected-mode-buttons button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#selected-compare-button {
+    background-color: #5bc0de; /* Info blue */
+    color: white;
+}
+
+#selected-compare-button:hover {
+    background-color: #31b0d5;
+}
+
+#selected-tryon-button {
+    background-color: #f0ad4e; /* Warning orange */
+    color: white;
+}
+
+#selected-tryon-button:hover {
+    background-color: #ec971f;
+}
+
+/* --- Comparing Mode --- */
+#comparing-mode-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* Prevent main scroll */
+}
+
+.comparing-left {
+    flex: 0 0 45%; /* Fixed width for the original item */
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #eee;
+    overflow-y: auto;
+}
+
+.comparing-original-item {
+    width: 90%;
+}
+
+.comparing-original-item img {
+    max-width: 100%;
+    max-height: 200px;
+    display: block;
+    margin: 0 auto 10px auto;
+}
+
+.comparing-original-item span {
+    display: block;
+    text-align: center;
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.comparing-original-item button {
+    display: block;
+    margin: 10px auto 0 auto; /* Center button below item */
+    padding: 8px 15px;
+    background-color: #f0ad4e; /* Warning orange */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.comparing-original-item button:hover {
+    background-color: #ec971f;
+}
+
+.comparing-right {
+    flex: 1; /* Takes remaining space */
+    padding: 15px; /* Add padding back here */
+    overflow-y: auto; /* Prevent double scrollbars initially */
+}
+
+.closet-content {
+    flex-grow: 1; /* Takes space below header/nav */
+    overflow-y: auto; /* Allows scrolling if content exceeds space */
+    position: relative;
+}
+
+/* When an item is selected on the right side in comparing mode */
+.comparing-right-item {
+    width: 90%;
+}
+
+.comparing-right-item img {
+    max-width: 100%;
+    max-height: 200px;
+    display: block;
+    margin: 0 auto 10px auto;
+}
+
+.comparing-right-item span {
+    display: block;
+    text-align: center;
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.comparing-right-item button {
+    display: block;
+    margin: 10px auto 0 auto; /* Center button below item */
+    padding: 8px 15px;
+    background-color: #f0ad4e; /* Warning orange */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.comparing-right-item button:hover {
+    background-color: #ec971f;
+}
+
+/* --- Info Area (Shared) --- */
+.info-area {
+    flex-shrink: 0; /* Prevent shrinking */
+    height: 120px; /* Fixed height for info area */
+    padding: 15px;
+    border-top: 1px solid #eee;
+    overflow-y: auto; /* Scroll if info is too long */
+    background-color: #f9f9f9;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+#item-info-content {
+    /* Styles for the text content */
+}
+
+/* --- Utility --- */
+.hidden {
+    display: none !important;
+}
+
+/* Style for the new close button */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ddd;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1; /* Ensure X is centered */
+    padding: 0;
+}
+
+.close-button:hover {
+    background: #ccc;
+    color: #000;
+}
+
+/* Ensure buttons are visible */
+.selected-mode-buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 280px;
+    margin-top: 15px; /* Add space above buttons */
+}

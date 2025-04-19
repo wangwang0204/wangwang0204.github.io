@@ -1,0 +1,81 @@
+.text-area {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensure it fills the .text-area div */
+  width: 100%; /* Ensure it spans the full width */
+  box-sizing: border-box;
+  background-color: white; /* White background for the chat area */
+}
+
+.gemini-message {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  align-self: flex-start; /* Align Gemini messages to the left */
+}
+
+.gemini-logo {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.gemini-text {
+  font-size: 0.9em;
+  color: #555;
+}
+
+#chat-log {
+  flex-grow: 1; /* Allow chat log to take available space */
+  overflow-y: auto; /* Enable scrolling for the chat log */
+  padding: 10px;
+  display: flex; /* Enable flexbox for alignment */
+  flex-direction: column; /* Stack messages vertically */
+}
+
+.user-message {
+  background-color: #eef1f6; /* Light gray */
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  align-self: flex-end; /* Align to the right */
+  font-size: 0.9em;
+  word-break: break-word;
+  max-width: 70%; /* Limit the width of user messages */
+}
+
+.chat-input-area {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid #eee;
+  width: 100%; /* Ensure it spans the full width of the parent */
+  box-sizing: border-box; /* Include padding in the element's total width */
+}
+
+.chat-input-area input[type="text"] {
+  flex-grow: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px; /* Rounded edges */
+  font-size: 0.9em;
+  margin-right: 10px;
+}
+
+.chat-input-area button {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.chat-input-area button img {
+  width: 24px;
+  height: 24px;
+}
