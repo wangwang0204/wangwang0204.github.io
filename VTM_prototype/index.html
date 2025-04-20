@@ -19,13 +19,18 @@
            <div class="text-area">
                <div class="chat-container">
                    <div id="chat-log">
-                       <div class="gemini-message">
-                           <img src="images/gemini_logo.png" alt="Gemini Logo" class="gemini-logo">
-                           <span class="gemini-text">Hi there! How can I help you style today?</span>
+                       <div class="model-message">
+                           <img src="images/gemma_logo.svg" alt="Model Logo" class="model-logo">
+                           <span class="model-text">Hi there! How can I help you style today?</span>
                        </div>
                    </div>
                    <div class="chat-input-area">
-                       <input type="text" id="user-input" placeholder="Ask Fashion-Instruct Gemini...">
+                       <input type="text" id="user-input" placeholder="Ask Gemma...">
+                       <select id="model-select">
+                           <option value="google/gemma-3-27b-it:free">gemma-3-27b-it</option>
+                           <option value="qwen/qwen2.5-vl-72b-instruct:free">Qwen</option>
+                           <option value="meta-llama/llama-4-maverick:free">Llama-4-maverick</option>
+                        </select>
                        <button id="send-button">
                            <img src="images/voice_icon.png" alt="Send/Voice Input">
                        </button>
@@ -49,9 +54,9 @@
                    <div class="type-select-container">
                        <select id="type-select">
                            <option value="all">All</option>
-                           <option value="clothes">Clothes</option>
-                           <option value="pants">Pants</option>
-                           <option value="shoes">Shoes</option>
+                           <option value="clothes">👔 Clothes</option>
+                           <option value="pants">👖 Pants</option>
+                           <option value="shoes">👠 Shoes</option>
                        </select>
                    </div>
                </div>
