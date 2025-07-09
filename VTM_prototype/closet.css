@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 /* --- Closet Area General --- */
 .closet-area {
     flex-grow: 1; /* Takes remaining vertical space in right-section */
@@ -10,12 +16,6 @@
 }
 
 /* --- Closet Content --- */
-.closet-content {
-    flex-grow: 1; /* Takes space below header/nav */
-    overflow-y: auto; /* Allows scrolling if content exceeds space */
-    position: relative;
-    box-sizing: border-box; /* Ensure padding doesn't cause overflow */
-}
 
 /* --- Closet Header --- */
 .closet-header {
@@ -270,7 +270,8 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    height: 100%; /* Fill closet-content space */
+    height: 100vh; /* Use viewport height */
+    max-height: 100vh;
     width: 100%;
     overflow-y: auto;
     box-sizing: border-box;
@@ -278,19 +279,23 @@
 
 .selected-item-display {
     width: 100%;
-    max-height: 80%;
+    max-height: 100%; /* Let it fill its parent container */
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden; /* Clip content that exceeds the box */
+    box-sizing: border-box;
+    padding: 10px;
 }
 
-
 .selected-item-display img {
-    margin: 15px auto 0; /* Top margin and auto left/right margins to center */
-    max-width: 70%; /* Reduced from 100% to make image smaller */
-    max-height: 250px; /* Set a specific max height */
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
     display: block;
-    object-fit: contain; /* Maintain aspect ratio */
+    margin: 0 auto;
+    object-fit: contain; /* Ensure image fits the box without cropping */
 }
 
 /*

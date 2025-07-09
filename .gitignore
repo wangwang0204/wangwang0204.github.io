@@ -1,3 +1,14 @@
 travel
-test.py
+travel_backup
+test*
 app.py
+Schedule/
+
+# Ignore tex files
+*.tex
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
