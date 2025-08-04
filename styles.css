@@ -3,9 +3,52 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 20px;
-    max-width: 800px;
+    max-width: 1200px; /* 增加最大寬度以容納兩欄 */
     margin: 0 auto;
 }
+
+/* 新增容器來包裹兩欄 */
+.container {
+    display: flex;
+    gap: 20px;
+}
+
+#left-column {
+    width: 60%;
+    flex: 0 0 60%; /* 固定左欄寬度 */
+}
+
+#right-column {
+    width: 40%;
+    flex: 0 0 40%; /* 固定右欄寬度 */
+    /* 移除 float: right; */
+}
+
+/* 聊天機器人樣式 */
+.chatbot-container {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    height: 600px; /* 固定高度 */
+    overflow: hidden; /* 防止溢出 */
+}
+
+.chatbot-container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 18px;
+}
+
+.chatbot-iframe {
+    width: 100%;
+    height: calc(100% - 40px); /* 減去標題高度 */
+    border: none;
+    border-radius: 5px;
+    background: white;
+}
+
 header {
     text-align: center;
     margin-bottom: 30px;
