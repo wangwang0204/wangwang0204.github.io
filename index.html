@@ -4,12 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UIBP Poster Demo</title>
+    
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* 避免頁面本身出現滾動條 */
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* 移除 iframe 的預設邊框 */
+        }
+    </style>
 </head>
 <body>
+    
     <iframe
         src="https://uibp-poster-demo.streamlit.app/?embed=true"
         title="UIBP Poster Demo"
         allowfullscreen>
     </iframe>
+
 </body>
 </html>
