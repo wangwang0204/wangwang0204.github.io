@@ -1,0 +1,24 @@
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: "**/*.md"
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file: ".github/workflows/**"
+
+modules:
+  - changed-files:
+      - any-glob-to-any-file: "modules/**"
+
+starters:
+  - changed-files:
+      - any-glob-to-any-file: "starters/**"
+
+config:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "package.json"
+          - "pnpm-lock.yaml"
+          - "biome.json"
+          - ".stylelintrc.yaml"
+          - "vite.config.js"

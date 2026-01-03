@@ -1,0 +1,238 @@
+{{/* Hugo Blox: Biography 3 */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/kit/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+
+{{ $author := $block.content.username | default "me" }}
+{{ $profile := partial "functions/get_author_profile" $author }}
+{{ $avatar := $profile.avatar }}
+
+{{/* Avatar customization parameters */}}
+{{ $avatar_size := $block.design.avatar.size | default "large" }}
+{{ $avatar_shape := $block.design.avatar.shape | default "circle" }}
+
+{{/* Profile name typography */}}
+{{ $name_size := $block.design.name.size | default "lg" }}
+{{ $name_class_map := dict
+  "xs" "text-xl sm:text-2xl lg:text-3xl"
+  "sm" "text-2xl sm:text-3xl lg:text-4xl"
+  "md" "text-3xl sm:text-4xl lg:text-5xl"
+  "lg" "text-4xl sm:text-5xl lg:text-6xl"
+  "xl" "text-5xl sm:text-6xl lg:text-7xl"
+}}
+{{ $name_class := index $name_class_map $name_size | default (index $name_class_map "lg") }}
+
+{{/* Size mappings optimized for 2025 standards: display_size -> [display_px, generation_px] */}}
+{{ $size_map := dict "small" (slice "150" "300") "medium" (slice "200" "400") "large" (slice "320" "640") "xl" (slice "400" "800") "xxl" (slice "500" "1000") }}
+{{ $size_config := index $size_map $avatar_size | default (index $size_map "large") }}
+{{ $display_size := index $size_config 0 }}
+{{ $generation_size := index $size_config 1 }}
+
+{{/* Shape class mappings */}}
+{{ $shape_classes := dict "circle" "rounded-full" "square" "rounded-none" "rounded" "rounded-lg" }}
+{{ $shape_class := index $shape_classes $avatar_shape | default "rounded-full" }}
+
+<div class="resume-biography py-8 px-4 sm:py-12 md:py-16 lg:py-24 xl:py-32 relative overflow-hidden">
+  {{/* Add subtle top gradient for navbar transition */}}
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
+      
+      {{/* Left Column: Flexible span */}}
+      <div class="md:col-span-4 flex flex-col items-center text-center space-y-6 md:space-y-8">
+        
+        {{/* Banner Image */}}
+        {{ $img := "" }}
+        {{with $block.design.banner.filename}}
+        {{- $img = resources.Get (path.Join "media" .) -}}
+        {{ if $img }}
+          <div class="relative w-full h-64 rounded-2xl overflow-hidden shadow-xl mb-8">
+            {{ if ne $img.MediaType.SubType "gif" }}
+              {{ $responsive := partial "functions/process_responsive_image.html" (dict 
+                  "image" $img 
+                  "mode" "fill"
+                  "aspect_ratio" "16:9"
+                  "sizes" (slice 768 1024 1366 1920 2560)
+              ) }}
+              <img class="absolute inset-0 w-full h-full object-cover"
+                   srcset="{{ $responsive.srcset }}"
+                   sizes="100vw"
+                   src="{{ $responsive.fallback.RelPermalink }}"
+                   alt="" />
+            {{ else }}
+              {{- $img = $img.Process "webp" -}}
+              <img class="absolute inset-0 w-full h-full object-cover"
+                   src="{{$img.RelPermalink}}"
+                   alt="" />
+            {{ end }}
+          </div>
+        {{ end }}
+        {{ end }}
+
+        {{/* Avatar */}}
+        {{ if $avatar }}
+        <div class="avatar-wrapper {{ if $img }}-mt-24{{else}}mb-4{{end}}" style="width: {{$display_size}}px; height: {{$display_size}}px;">
+          {{ $avatar_image := $avatar.Fill (printf "%sx%s Center" $generation_size $generation_size) }}
+          <img class="avatar {{$shape_class}} border-4 border-white shadow-2xl" 
+               src="{{ $avatar_image.RelPermalink }}" 
+               alt="{{$profile.title}}"
+               width="{{$display_size}}" 
+               height="{{$display_size}}"
+               style="width: {{$display_size}}px; height: {{$display_size}}px; object-fit: cover;">
+          {{with $profile.status.icon}}<span class="avatar-emoji">{{.|emojify}}</span>{{end}}
+        </div>
+        {{ end }}
+
+        {{/* Name and Role - Centered */}}
+        <div class="space-y-3">
+          <h1 class="{{ $name_class }} font-black text-gray-900 dark:text-white leading-tight">
+            {{ $profile.title }}
+          </h1>
+          
+          {{- with $profile.pronouns -}}
+            <p class="text-lg text-gray-600 dark:text-gray-400">({{ . }})</p>
+          {{- end -}}
+          
+          {{ with $profile.role }}
+            <p class="text-2xl font-semibold text-primary-600 dark:text-primary-400">{{ . | markdownify | emojify }}</p>
+          {{ end }}
+          
+          {{ range $profile.affiliations }}
+            <p class="text-lg text-gray-700 dark:text-gray-300">
+              {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ end }}
+              {{ .name }}
+              {{ if .url }}</a>{{ end }}
+            </p>
+          {{ end }}
+        </div>
+
+        {{/* Social Icons */}}
+        <div class="flex flex-wrap justify-center gap-4">
+          {{ range $profile.links }}
+          {{ $link := .url | default .link }}
+          {{ $scheme := (urls.Parse $link).Scheme }}
+          {{ $target := "" }}
+          {{ if not $scheme }}
+            {{ $link = (.url | default .link) | relLangURL }}
+            {{ if eq (path.Ext $link) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+          {{ else if in (slice "http" "https") $scheme }}
+            {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+          {{ end }}
+          <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} 
+             aria-label="{{ .icon }}"
+             {{ with .label }} title="{{.}}"{{ end }}
+             class="w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 
+                    shadow-md hover:shadow-xl hover:scale-110 hover:-translate-y-1 
+                    transition-all duration-300 border border-gray-200 dark:border-gray-700">
+            {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class=\"w-6 h-6\"")  }}
+          </a>
+          {{ end }}
+        </div>
+      </div>
+
+      {{/* Right Column: Flexible span */}}
+      <div class="md:col-span-8">
+        
+        {{/* Bio Section */}}
+        {{ $bio_content := ($block.content.text | emojify | $page.RenderString) | default $profile.bio }}
+        {{ with $bio_content }}
+        <div class="mb-12">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center">
+              {{ partial "functions/get_icon" (dict "name" "identification" "attributes" "class='w-6 h-6 text-primary-600 dark:text-primary-400'") }}
+            </div>
+            {{ $i18n_about := i18n "about_me" }}
+            {{ $about_default := cond (eq $i18n_about "about_me") "Professional Summary" $i18n_about }}
+            {{ $about_heading := $block.content.headings.about | default $about_default }}
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ $about_heading }}</h2>
+          </div>
+          <div class="prose prose-lg dark:prose-invert text-gray-800 dark:text-gray-200 text-base sm:text-lg leading-relaxed">
+            <div class="bio-text" {{ with $block.design.biography.style }}{{ (printf "style=\"%s\"" .) | safe.HTMLAttr }}{{end}}>
+              {{ . }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
+
+        {{/* CV Download Button */}}
+        {{ with $block.content.button }}
+        <div class="mb-16">
+          <a href="{{.url}}" target="_blank" 
+             class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+            {{ partial "functions/get_icon" (dict "name" "document-arrow-down" "attributes" "class='w-5 h-5 mr-3'") }}
+            {{.text}}
+          </a>
+        </div>
+        {{ end }}
+
+        {{/* Education Section */}}
+        {{ with $profile.education }}
+        <div class="mb-16">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center">
+              {{ partial "functions/get_icon" (dict "name" "academic-cap" "attributes" "class='w-6 h-6 text-primary-600 dark:text-primary-400'") }}
+            </div>
+            {{ $education_heading := $block.content.headings.education | default (i18n "education") }}
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ $education_heading | markdownify }}</h3>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {{ range . }}
+            <div class="group h-full flex flex-col bg-gradient-to-br from-white/90 to-primary-50/30 dark:from-gray-800/90 dark:to-primary-900/20 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-transparent hover:border-primary-200 dark:hover:border-primary-800 backdrop-blur-md">
+              <div class="flex gap-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-white dark:bg-gray-800 ring-1 ring-gray-200 dark:ring-gray-700 rounded-full flex items-center justify-center shadow-md">
+                  {{ if .icon }}
+                    {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class='w-6 h-6 text-primary-600 dark:text-primary-400'") }}
+                  {{else}}
+                    {{ partial "functions/get_icon" (dict "name" "academic-cap" "attributes" "class='w-6 h-6 text-primary-600 dark:text-primary-400'") }}
+                  {{end}}
+                </div>
+                <div class="flex-1 flex-grow">
+                  {{ $degree := .degree | default .area }}
+                  <p class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                    {{ $degree }}
+                  </p>
+                  {{ if .year }}
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-2">{{ .year }}</p>
+                  {{ else if .start }}
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-2">
+                      {{ .start }}
+                      {{ if .end }}<br>{{ .end }}{{ end }}
+                    </p>
+                  {{ end }}
+                  <p class="text-gray-700 dark:text-gray-300 text-base">{{ .institution }}</p>
+                </div>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+
+        {{/* Interests Section */}}
+        {{ with $profile.interests }}
+        <div>
+          <div class="flex items-center gap-4 mb-8">
+            <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center">
+              {{ partial "functions/get_icon" (dict "name" "sparkles" "attributes" "class='w-6 h-6 text-primary-600 dark:text-primary-400'") }}
+            </div>
+            {{ $interests_heading := $block.content.headings.interests | default (i18n "interests") }}
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white tracking-tight">{{ $interests_heading | markdownify }}</h3>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            {{ range . }}
+            <span class="inline-block bg-primary-50 dark:bg-gray-800 text-primary-800 dark:text-primary-200 text-base font-medium px-4 py-2 rounded-full border border-primary-200/50 dark:border-primary-800/50
+                           hover:bg-primary-100 
+                           dark:hover:bg-primary-500 dark:hover:text-gray-900 dark:hover:border-primary-500
+                           transition-all duration-200 cursor-default">
+              {{ . | markdownify | emojify }}
+            </span>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>
