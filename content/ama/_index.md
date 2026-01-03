@@ -1,4 +1,6 @@
-## 🔎 Personal RAG Demo
+---
+title: AMA
+---
 
 <div class="full-width-embed">
   <iframe
