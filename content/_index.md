@@ -1,6 +1,6 @@
 ---
-title: 'Hello!'
-date: 2023-10-24
+title: 'Home'
+date: 2026-01-03
 type: landing
 sections:
   - block: resume-biography

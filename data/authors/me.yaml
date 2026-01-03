@@ -1,3 +1,4 @@
+# !!! Home 改這邊
 # Schema for the author profile page
 schema: hugoblox/author/v1
 # Slug of the author profile page. This is used to link to the author's page.
@@ -11,23 +12,23 @@ name:
 status:
   icon: "💼"
 # Role/position/tagline
-role: 國立台灣大學 國際企業學系 | 商業數據分析跨領域學士
+role: International Business | Business Data Science (NTU UIBP)
 # A brief introduction about you
-bio: "我是一名對商業策略和數據科學充滿熱情的學生，專注於探索數據如何驅動商業決策。"
+bio: "Passionate about leveraging data to drive business strategy and decision-making."
 # Organizations/Affiliations.
 affiliations:
   - name: National Taiwan University
-    url: https://www.ntu.edu.tw/
+  #  url: https://www.ntu.edu.tw/
+
 # Social/Academic Networking
 # For available icons, see: https://docs.hugoblox.com/reference/icons/
-# For example, use 'metricons/ ursprünglich' for the Mastodon icon.
 links:
   - icon: at-symbol
-    url: mailto:leowang@example.com
+    url: mailto:wangleo20050204@gmail.com
     label: E-mail Me
   - icon: academicons/cv
-    url: uploads/resume.pdf
+    url: uploads/resume.pdf  # temp
     label: 下載我的履歷
-  - icon: rss
-    url: ./blog/index.xml
-    label: 訂閱我的部落格
+  - icon: github
+    url: https://github.com/wangwang0204
+    label: GitHub
