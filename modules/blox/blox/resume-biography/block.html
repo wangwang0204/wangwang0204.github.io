@@ -1,0 +1,135 @@
+{{/* Hugo Blox: Biography */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/kit/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+
+{{ $author := $block.content.username | default "me" }}
+{{ $profile := partial "functions/get_author_profile" $author }}
+{{ $avatar := $profile.avatar }}
+
+{{/* Avatar customization parameters */}}
+{{ $avatar_size := $block.design.avatar.size | default "medium" }}
+{{ $avatar_shape := $block.design.avatar.shape | default "circle" }}
+
+{{/* Size mappings optimized for 2025 standards: display_size -> [display_px, generation_px] */}}
+{{ $size_map := dict "small" (slice "150" "300") "medium" (slice "200" "400") "large" (slice "320" "640") "xl" (slice "400" "800") "xxl" (slice "500" "1000") }}
+{{ $size_config := index $size_map $avatar_size | default (index $size_map "medium") }}
+{{ $display_size := index $size_config 0 }}
+{{ $generation_size := index $size_config 1 }}
+
+{{/* Shape class mappings */}}
+{{ $shape_classes := dict "circle" "rounded-full" "square" "rounded-none" "rounded" "rounded-lg" }}
+{{ $shape_class := index $shape_classes $avatar_shape | default "rounded-full" }}
+
+{{ $img := "" }}
+{{with $block.design.banner.filename}}
+{{- $img = resources.Get (path.Join "media" .) -}}
+{{ if $img }}
+  {{ if ne $img.MediaType.SubType "gif" }}
+    {{ $responsive := partial "functions/process_responsive_image.html" (dict 
+        "image" $img 
+        "mode" "fill"
+        "aspect_ratio" "16:9"
+        "sizes" (slice 768 1024 1366 1920 2560)
+    ) }}
+    <div class="w-full bg-gray-200 dark:bg-gray-900 flex flex-wrap items-center justify-center">
+      <div class="w-full bg-white rounded dark:bg-gray-800">
+        <div class="h-2/4 sm:h-64 overflow-hidden w-full">
+          <img class="w-full object-cover"
+               srcset="{{ $responsive.srcset }}"
+               sizes="100vw"
+               src="{{ $responsive.fallback.RelPermalink }}"
+               width="{{ $responsive.fallback.Width }}" 
+               height="{{ $responsive.fallback.Height }}"
+               alt="" />
+        </div>
+      </div>
+    </div>
+  {{ else }}
+    {{/* Handle GIF without processing */}}
+    {{- $img = $img.Process "webp" -}}
+    <div class="w-full bg-gray-200 dark:bg-gray-900 flex flex-wrap items-center justify-center">
+      <div class="w-full bg-white rounded dark:bg-gray-800">
+        <div class="h-2/4 sm:h-64 overflow-hidden w-full">
+          <img class="w-full object-cover"
+               src="{{$img.RelPermalink}}"
+               width="{{$img.Width}}" height="{{$img.Height}}"
+               alt="" />
+        </div>
+      </div>
+    </div>
+  {{ end }}
+{{ end }}
+{{ end }}
+
+<div id="profile" class="resume-biography flex justify-center items-center flex-col dark:text-white">
+  {{ if $avatar }}
+
+  <div class="avatar-wrapper {{ if $img }}-mt-[105px]{{else}}mt-10{{end}}" style="width: {{$display_size}}px; height: {{$display_size}}px;">
+    {{ $avatar_image := $avatar.Fill (printf "%sx%s Center" $generation_size $generation_size) }}
+    <img class="avatar {{$shape_class}} bg-white dark:bg-gray-800 p-1" src="{{ $avatar_image.RelPermalink }}" alt="{{$profile.title}}"
+         width="{{$display_size}}" height="{{$display_size}}"
+         style="width: {{$display_size}}px; height: {{$display_size}}px; object-fit: cover;">
+    {{with $profile.status.icon}}<span class="avatar-emoji">{{.|emojify}}</span>{{end}}
+  </div>
+  {{ end }}
+
+  <div class="text-3xl font-bold mb-2 mt-6">
+    {{- $profile.title -}}
+  </div>
+  {{- with $profile.pronouns -}}
+    <div class="text-lg font-normal text-gray-600 dark:text-gray-400 -mt-1 mb-2">({{ . }})</div>
+  {{- end -}}
+
+  {{ with $profile.role }}<h3 class="font-semibold mb-1">{{ . | markdownify | emojify }}</h3>{{ end }}
+
+  {{ range $profile.affiliations }}
+  <div class="mb-2">
+    {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
+    <div>{{ .name }}</div>
+    {{ if .url }}</a>{{ end }}
+  </div>
+  {{ end }}
+
+  {{ if $profile.links }}
+  <ul class="network-icon dark:text-zinc-100">
+    {{ range $profile.links }}
+    {{ $link := .url | default .link }}
+    {{ $scheme := (urls.Parse $link).Scheme }}
+    {{ $target := "" }}
+    {{ if not $scheme }}
+      {{ $link = (.url | default .link) | relLangURL }}
+      {{ if eq (path.Ext $link) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+    {{ else if in (slice "http" "https") $scheme }}
+      {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+    {{ end }}
+    <li>
+      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ .icon }}"
+         {{ with .label }} data-toggle="tooltip" data-placement="top" title="{{.}}"{{ end }}>
+        {{ partial "functions/get_icon" (dict "name" .icon "attributes" "style=\"height: 1.5rem;\"")  }}
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+  {{ end }}
+
+  {{ $bio_content := ($block.content.text | emojify | $page.RenderString) | default $profile.bio }}
+  {{ with $bio_content }}
+  <div class="pt-2 d-flex justify-content-center prose prose-slate lg:prose-xl dark:prose-invert">
+    <div class="bio-text" {{ with $block.design.biography.style }}{{ (printf "style=\"%s\"" .) | safe.HTMLAttr }}{{end}}>
+      {{ . }}
+    </div>
+  </div>
+  {{ end }}
+
+  {{ with $block.content.button }}
+  <a href="{{.url}}" target="_blank" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg transition-colors hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-gray-900 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:text-white dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+    <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
+    <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+  </svg> {{.text}}</a>
+  {{ end }}
+
+</div>

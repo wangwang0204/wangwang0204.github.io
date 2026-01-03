@@ -1,0 +1,68 @@
+{{/* Hugo Blox: Skills */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/kit/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $author := $block.content.username | default "me" }}
+{{ $profile := partial "functions/get_author_profile" $author }}
+{{ $skills := $profile.skills | default (slice) }}
+
+<div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center">
+
+  <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+    {{ $block.content.title | markdownify | emojify }}
+  </div>
+
+  {{ with $block.content.text }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+</div>
+
+{{ $columns := $block.design.columns | default 2 }}
+<div class="grid grid-cols-1 {{ if ge $columns 2 }}md:grid-cols-2{{ end }} {{ if ge $columns 3 }}lg:grid-cols-3{{ end }} {{ if ge $columns 4 }}xl:grid-cols-4{{ end }} {{ if ge $columns 5 }}2xl:grid-cols-5{{ end }} items-start max-w-prose mx-auto gap-3 px-6 md:px-0">
+
+  {{ range $skills }}
+  {{ $color := .color | default "" }}
+  {{ $color_border := .color_border | default "" }}
+  <div class="w-full">
+    <div class="mb-5 text-xl font-bold text-gray-900 dark:text-white">
+      {{ .name | markdownify | emojify }}
+      {{ with .description }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+    </div>
+    {{ range (.items | default (slice)) }}
+
+    <div class="skills-content">
+
+      {{ with .icon }}
+      <span class="skills-icon inline-block">
+        {{ partial "functions/get_icon" (dict "name" . "attributes" "style=\"height: 1em;\"")  }}
+      </span>
+      {{ end }}
+
+      {{ $label := .label | default .name }}
+      <span class="skills-name text-gray-700 dark:text-gray-300">
+        {{ $label | markdownify | emojify }}
+        {{ with .description }}<p class="skills-description">{{ . | markdownify | emojify }}</p>{{ end }}
+      </span>
+      {{/* Numeric level (1-5) only. */}}
+      {{ $level := 0.0 }}
+      {{ if isset . "level" }}
+        {{ $raw := .level }}
+        {{ $type := printf "%T" $raw }}
+        {{ if or (eq $type "int") (eq $type "int64") (eq $type "int32") (eq $type "int16") (eq $type "int8") (eq $type "uint") (eq $type "uint64") (eq $type "uint32") (eq $type "uint16") (eq $type "uint8") (eq $type "float64") (eq $type "float32") }}
+          {{ $level = float $raw }}
+        {{ end }}
+      {{ end }}
+      {{ if gt $level 5 }}{{ $level = 5 }}{{ end }}
+      {{ if lt $level 0 }}{{ $level = 0 }}{{ end }}
+      {{ if gt $level 0 }}
+      {{ $levelPercent := mul $level 20 }}
+      <div class="skills-wrapper" {{with $color_border}}{{ (printf "style=\"border-color: %s\"" .) | safeHTMLAttr }}{{end}}>
+        <div class="skills-percent" style="width: {{ printf "%.0f" $levelPercent }}%; {{with $color}}{{ (printf "background-color: %s" .) | safeCSS }}{{end}}"></div>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+{{ end }}
+</div>
