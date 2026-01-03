@@ -1,12 +1,4 @@
-.center-embed-80 {
-  max-width: none !important;   /* 🔥 關鍵 */
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.center-embed-80 iframe {
-  width: 80%;
-  height: 90vh;
-  border: none;
+.full-width-embed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
 }
