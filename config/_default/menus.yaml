@@ -5,11 +5,16 @@ main:
   - name: Home
     url: /
     weight: 10
-  - name: Blogs
-    url: /blog
-  - name: Ask me Anything
-    url: /ama
-    weight: 20
+
   - name: Projects
     url: /projects
+    weight: 20
+
+  - name: Blogs
+    url: /blogs
     weight: 30
+
+  - name: Ask Me Anything
+    url: /ama
+    weight: 40
+
