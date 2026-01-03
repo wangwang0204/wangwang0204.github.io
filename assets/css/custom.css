@@ -1,12 +1,8 @@
-.full-width-embed {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-}
 .center-embed-80 {
+  max-width: none !important;   /* 🔥 關鍵 */
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 0;      /* 不往下推 */
 }
 
 .center-embed-80 iframe {
