@@ -1,32 +1,33 @@
+# Schema for the author profile page
 schema: hugoblox/author/v1
+# Slug of the author profile page. This is used to link to the author's page.
 slug: me
+# Is this the primary user of the site?
 is_owner: true
+# Author's display name
 name:
-  display: 王
-  given: Shiung Wu
-  family: Chien
-  pronunciation: Chien Shiung Wu
-  pronouns: she/her
+  display: Leo Wang
+# Status emoji and text
 status:
-  icon: "☕️"
-role: Professor of Artificial Intelligence
-bio: My research interests include distributed robotics, mobile computing and programmable matter.
+  icon: "💼"
+# Role/position/tagline
+role: 國立台灣大學 國際企業學系 | 商業數據分析跨領域學士
+# A brief introduction about you
+bio: "我是一名對商業策略和數據科學充滿熱情的學生，專注於探索數據如何驅動商業決策。"
+# Organizations/Affiliations.
 affiliations:
-  - name: Stanford University
-    url: https://www.stanford.edu/
+  - name: National Taiwan University
+    url: https://www.ntu.edu.tw/
+# Social/Academic Networking
+# For available icons, see: https://docs.hugoblox.com/reference/icons/
+# For example, use 'metricons/ ursprünglich' for the Mastodon icon.
 links:
   - icon: at-symbol
-    url: mailto:your-email@example.com
+    url: mailto:leowang@example.com
     label: E-mail Me
-  - icon: brands/x
-    url: https://x.com/BuildLore
-  - icon: brands/instagram
-    url: https://www.instagram.com/
-  - icon: brands/linkedin
-    url: https://www.linkedin.com/
   - icon: academicons/cv
     url: uploads/resume.pdf
-    label: Download my resume
+    label: 下載我的履歷
   - icon: rss
-    url: ./post/index.xml
-    label: Subscribe to my blog via RSS feed
+    url: ./blog/index.xml
+    label: 訂閱我的部落格
