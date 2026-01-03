@@ -10,3 +10,6 @@ main:
   - name: Ask me Anything
     url: /ama
     weight: 20
+  - name: Projects
+    url: /projects
+    weight: 30

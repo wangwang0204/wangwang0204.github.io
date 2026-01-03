@@ -1,5 +1,5 @@
 ---
-title: "初探羅吉斯迴歸 (Logistic Regression)"
+title: "Logistic Regression Explained (Test)"
 date: 2026-01-03
 authors:
   - me
