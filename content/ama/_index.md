@@ -1,5 +1,6 @@
 ---
 title: AMA
+type: page
 ---
 
 <div class="full-width-embed">
