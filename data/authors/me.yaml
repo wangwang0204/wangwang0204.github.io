@@ -2,7 +2,7 @@ schema: hugoblox/author/v1
 slug: me
 is_owner: true
 name:
-  display: 吳健雄
+  display: 王
   given: Shiung Wu
   family: Chien
   pronunciation: Chien Shiung Wu
