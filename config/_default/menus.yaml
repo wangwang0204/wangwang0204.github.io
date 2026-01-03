@@ -5,9 +5,8 @@ main:
   - name: Home
     url: /
     weight: 10
-  - name: Topics
-    url: tags/
+  - name: Blogs
+    url: /blog
+  - name: Ask me Anything
+    url: /ama
     weight: 20
-  - name: Uses
-    url: uses/
-    weight: 30
